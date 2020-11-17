@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component} from "react";
+import HelloWorld from "./components/HelloWorld";
+import Header from "./components/Header";
+import Count from "./components/Count";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+  state = {
+    count: 0
+  };
+
+  //We can use this
+  constructor(props) {
+    super(props);
+    this.handlePlus = this.handlePlus.bind(this);
+  }
+
+
+  handlePlus(){
+    console.log("Plus", this);
+    //We need to call the set state to change any state property
+    this.setState({
+      count: this.state.count + 1
+    })
+    // this.state.count += 1
+  }
+
+  //Or this
+  handleMinus = () => {
+    console.log("Minus");
+    // this.state.count -= 1
+    this.setState({
+      count: this.state.count - 1
+    })
+  }
+
+  render() {
+    return (
+        <div>
+          <Header title="Counting app" />
+          <Count count={this.state.count} />
+          <button onClick={this.handlePlus}>
+            Add
+          </button>
+          <button onClick={this.handleMinus}>
+            Minus
+          </button>
+          <HelloWorld />
+        </div>
+    )
+  }
 }
 
 export default App;
